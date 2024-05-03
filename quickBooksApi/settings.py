@@ -137,10 +137,9 @@ REDIRECT_URI = os.getenv("QB_REDIRECT_URI")
 QB_ACCESS_TOKEN = os.getenv("QB_ACCESS_TOKEN")
 QB_REFRESH_TOKEN = os.getenv("QB_REFRESH_TOKEN")
 REDIRECT_URI = os.getenv("QB_REDIRECT_URI")
+REALM_ID = os.getenv("QB_REALM_ID")
 ENVIRONMENT = 'sandbox'
 
 # QBO Base URLs
 QB_BASE_SANDBOX = 'https://sandbox-quickbooks.api.intuit.com'
 QB_BASE_PROD = 'https://quickbooks.api.intuit.com'
-
-REALM_ID = "9341452212557854"
