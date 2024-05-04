@@ -20,7 +20,7 @@ class QBTransactionsService:
         else:
             from_date = DEFAULT_START_DATE
         to_date = datetime.now().date()
-        raw_data_chunks = self.client.retreive_transactions_dataset(from_date=from_date, to_date=to_date)
+        raw_data_chunks = self.client.retrieve_transactions_dataset(from_date=from_date, to_date=to_date)
         for raw_data in raw_data_chunks:
             transactions_data.extend(self._transform_response(data=raw_data))
         self.save_to_db(transactions_data)

@@ -35,7 +35,7 @@ class QuickBooksAPIClient:
         except Exception as e:
             logger.error(f"Failed to refresh token with error {e}")
 
-    def retreive_transactions_dataset(self, from_date: date, to_date: date) -> List[Dict]:
+    def retrieve_transactions_dataset(self, from_date: date, to_date: date) -> List[Dict]:
         """
         Split date range to monthly chunks and load data.
         As API has max limit 400000 cells, in transactions case it will be 44_444 transactions, so months is ok,
@@ -56,12 +56,12 @@ class QuickBooksAPIClient:
                 except Exception as exc:
                     logger.error(f"{transactions} generated an exception: {exc}")
                 else:
-                    logger.error(f"Chunk has {len(data)} records")
+                    logger.error(f"Chunk has {len(data.get("Rows", {}))} records")
         return result
 
     def fetch_transactions(self, from_date: str, to_date: str) -> Dict:
         """
-         Perform plain http request to QB API
+         Perform plain http request to QB API.
         """
         url = '{0}/v3/company/{1}/reports/TransactionList?start_date={2}&end_date={3}'.format(
             settings.QB_BASE_SANDBOX, settings.REALM_ID, from_date, to_date
@@ -78,7 +78,9 @@ class QuickBooksAPIClient:
         return response
 
     def _generate_oauth_link(self):
-        """This method is not used in code, but is handy for initial getting of auth code
-        which will be exchanged for access and refresh tokens."""
+        """
+        This method is not used in code, but is handy for initial getting of auth code
+        which will be exchanged for access and refresh tokens.
+        """
         url = self.auth_client.get_authorization_url([Scopes.ACCOUNTING])
         return url
